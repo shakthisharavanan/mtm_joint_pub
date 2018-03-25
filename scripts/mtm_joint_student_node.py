@@ -18,20 +18,20 @@ def deg2rad(deg):
 if __name__ == '__main__':
     print "main"
     try:
-        rospy.init_node('mtm_joint_publisher', anonymous=True)
+        rospy.init_node('mtm_joint_student', anonymous=True)
         
-        out_yaw_pub = rospy.Publisher('/mtm/right_outer_yaw_joint/SetPosition', Float64, queue_size=10)
-        shoulder_pub = rospy.Publisher('/mtm/right_shoulder_pitch_joint/SetPosition', Float64, queue_size=10)
-        elbow_pub = rospy.Publisher('/mtm/right_elbow_pitch_joint/SetPosition', Float64, queue_size=10)
-        platform_pub = rospy.Publisher('/mtm/right_wrist_platform_joint/SetPosition', Float64, queue_size=10)
-        pitch_pub = rospy.Publisher('/mtm/right_wrist_pitch_joint/SetPosition', Float64, queue_size=10)
-        yaw_pub = rospy.Publisher('/mtm/right_wrist_yaw_joint/SetPosition', Float64, queue_size=10)
-        roll_pub = rospy.Publisher('/mtm/right_wrist_roll_joint/SetPosition', Float64, queue_size=10)
-
+        out_yaw_pub = rospy.Publisher('/mtm_student/right_outer_yaw_joint/SetPosition', Float64, queue_size=10)
+        shoulder_pub = rospy.Publisher('/mtm_student/right_shoulder_pitch_joint/SetPosition', Float64, queue_size=10)
+        elbow_pub = rospy.Publisher('/mtm_student/right_elbow_pitch_joint/SetPosition', Float64, queue_size=10)
+        platform_pub = rospy.Publisher('/mtm_student/right_wrist_platform_joint/SetPosition', Float64, queue_size=10)
+        pitch_pub = rospy.Publisher('/mtm_student/right_wrist_pitch_joint/SetPosition', Float64, queue_size=10)
+        yaw_pub = rospy.Publisher('/mtm_student/right_wrist_yaw_joint/SetPosition', Float64, queue_size=10)
+        roll_pub = rospy.Publisher('/mtm_student/right_wrist_roll_joint/SetPosition', Float64, queue_size=10)
+        
         rate = rospy.Rate(100)
         img = np.zeros((300,512,3), np.uint8)
         cv2.namedWindow('Joint Angle Values')
-                        
+
         cv2.createTrackbar('Outer Yaw (75)',      'Joint Angle Values', 0, 45+75, nothing) #75
         cv2.createTrackbar('Shoulder Pitch (45)', 'Joint Angle Values', 0, 45+45, nothing) #45
         cv2.createTrackbar('Elbow Pitch (45)',    'Joint Angle Values', 0, 45+45, nothing) #45
@@ -58,8 +58,11 @@ if __name__ == '__main__':
        
         print ('track bar create ...')
         while not rospy.is_shutdown():
-            
-            cv2.waitKey(1) & 0xFF
+            img[:] = [0,0,255]
+            cv2.imshow('Joint Angle Values',img)
+            k = cv2.waitKey(1) & 0xFF
+            if k==27:
+                break
             
             outer_yaw.data = cv2.getTrackbarPos('Outer Yaw (75)', 'Joint Angle Values')
             shoulder_pitch.data = cv2.getTrackbarPos('Shoulder Pitch (45)', 'Joint Angle Values')
