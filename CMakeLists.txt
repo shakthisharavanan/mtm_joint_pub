@@ -19,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
-
+find_package(OpenCV REQUIRED)
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -152,6 +152,13 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+add_executable(mtm_teacher_shadow src/mtm_teacher_shadow.cpp)
+target_link_libraries(mtm_teacher_shadow ${catkin_LIBRARIES})
+target_link_libraries(mtm_teacher_shadow ${OpenCV_LIBS})
+
+add_executable(mtm_student_shadow src/mtm_student_shadow.cpp)
+target_link_libraries(mtm_student_shadow ${catkin_LIBRARIES})
+target_link_libraries(mtm_student_shadow ${OpenCV_LIBS})
 #############
 ## Install ##
 #############
