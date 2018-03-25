@@ -40,13 +40,13 @@ public:
 		
 		cv::namedWindow("Joints", WINDOW_AUTOSIZE);
 		
-		cv::createTrackbar("Outer Yaw (75)", "Joints", &slider, 120, nothing);
-		cv::createTrackbar("Shoulder Pitch (45)", "Joints", &slider, 90, nothing);
-		cv::createTrackbar("Elbow Pitch (45)", "Joints", &slider, 90, nothing);
-		cv::createTrackbar("Wrist platform (60)", "Joints", &slider, 304, nothing);
-		cv::createTrackbar("Wrist Pitch (90)", "Joints", &slider, 270, nothing);
-		cv::createTrackbar("Wrist Yaw (45)", "Joints", &slider, 90, nothing);
-		cv::createTrackbar("Wrist Roll (270)", "Joints", &slider, 540, nothing);
+		cv::createTrackbar("Outer Yaw (75)", "Joints", &slider, 120);
+		cv::createTrackbar("Shoulder Pitch (45)", "Joints", &slider, 90);
+		cv::createTrackbar("Elbow Pitch (45)", "Joints", &slider, 90);
+		cv::createTrackbar("Wrist platform (60)", "Joints", &slider, 304);
+		cv::createTrackbar("Wrist Pitch (90)", "Joints", &slider, 270);
+		cv::createTrackbar("Wrist Yaw (45)", "Joints", &slider, 90);
+		cv::createTrackbar("Wrist Roll (270)", "Joints", &slider, 540);
 
 		cv::setTrackbarPos("Outer Yaw (75)", "Joints", 75);
 		cv::setTrackbarPos("Shoulder Pitch (45)", "Joints", 45);
