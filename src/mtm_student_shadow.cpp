@@ -1,14 +1,19 @@
-#include <ros/ros.h>
-#include <sensor_msgs/JointState.h>
-#include <std_msgs/Float64.h>
-#include <std_msgs/Int32.h>
 #include <stdlib.h>
 #include <iostream>
 #include <stdio.h>
 
+#include <ros/ros.h>
+#include <sensor_msgs/JointState.h>
+#include <std_msgs/Float64.h>
+#include <std_msgs/Int32.h>
+#include <cisstRobot/robManipulator.h>
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+
+#include <cisstRobot/robManipulator.h>
+#include <cisstVector.h>
 
 using namespace cv;
 using namespace std;
