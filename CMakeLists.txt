@@ -14,10 +14,37 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   cv_bridge
   message_generation
+
+  cisst_ros_bridge
+  geometry_msgs
+  roslib
+  tf
 )
+
+# create a list of required cisst libraries
+set (REQUIRED_CISST_LIBRARIES
+  cisstCommon
+  cisstVector
+  cisstVectorQt
+  cisstOSAbstraction
+  cisstMultiTask
+  cisstParameterTypes
+  cisstRobot
+  cisstNumerical
+  cisstQt
+  )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+
+# find cisst and make sure the required libraries have been compiled
+find_package (cisst REQUIRED ${REQUIRED_CISST_LIBRARIES})
+include (${CISST_USE_FILE})
+
+# saw components 
+cisst_find_saw_component (sawRobotIO1394 REQUIRED)
+include_directories (${sawRobotIO1394_INCLUDE_DIR})
+link_directories (${sawRobotIO1394_LIBRARY_DIR})
 
 find_package(OpenCV REQUIRED)
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -107,7 +134,7 @@ find_package(OpenCV REQUIRED)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES mtm_joint_pub
-  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime cisst_ros_bridge geometry_msgs sensor_msgs
   DEPENDS system_lib
 )
 
@@ -155,6 +182,11 @@ include_directories(
 add_executable(mtm_student_shadow src/mtm_student_shadow.cpp)
 target_link_libraries(mtm_student_shadow ${catkin_LIBRARIES})
 target_link_libraries(mtm_student_shadow ${OpenCV_LIBS})
+
+add_executable(mtm_student_ik_shadow src/mtm_student_ik_shadow.cpp)
+target_link_libraries(mtm_student_ik_shadow ${catkin_LIBRARIES} ${OpenCV_LIBS} ${sawRobotIO1394_LIBRARIES})
+cisst_target_link_libraries (mtm_student_ik_shadow ${REQUIRED_CISST_LIBRARIES})
+
 #############
 ## Install ##
 #############
